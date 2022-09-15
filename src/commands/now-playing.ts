@@ -1,6 +1,5 @@
-import { SlashCommandBuilder } from '@discordjs/builders';
 import { AudioPlayerStatus } from '@discordjs/voice';
-import { CommandInteraction, MessageEmbed } from 'discord.js';
+import { ChatInputCommandInteraction, EmbedBuilder, SlashCommandBuilder } from 'discord.js';
 import Players from '../Players';
 import Util from '../util/Util';
 
@@ -8,7 +7,7 @@ export default {
   data: new SlashCommandBuilder()
     .setName('now-playing')
     .setDescription('Gets information about the current song'),
-  async execute(interaction: CommandInteraction) {
+  async execute(interaction: ChatInputCommandInteraction) {
     if (!interaction.guild) {
       interaction.reply({ content: 'You are not currently in a guild!', ephemeral: true });
       return;
@@ -28,6 +27,6 @@ export default {
     const media = player.nowPlaying;
     const elapsed = Math.round(player.player.state.playbackDuration / 1000);
     const progress = Math.round((elapsed / media.duration.number) * 20) + 1;
-    interaction.reply({ embeds: [new MessageEmbed().setTitle(media.title).setDescription(`${Util.toHHMMSS(elapsed)} / ${media.duration.string}\n[${'='.repeat(progress - 1)}>${'--'.repeat(19 - progress)}]`)] });
+    interaction.reply({ embeds: [new EmbedBuilder().setTitle(media.title).setDescription(`${Util.toHHMMSS(elapsed)} / ${media.duration.string}\n[${'='.repeat(progress - 1)}>${'--'.repeat(19 - progress)}]`)] });
   },
 };

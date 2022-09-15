@@ -1,5 +1,4 @@
-import { SlashCommandBuilder } from '@discordjs/builders';
-import { CommandInteraction } from 'discord.js';
+import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 import Players from '../Players';
 
 export default {
@@ -7,7 +6,7 @@ export default {
     .setName('remove')
     .setDescription('Removes the song with the given ID in the queue')
     .addIntegerOption((option) => option.setName('index').setDescription('The index of the song you want to remove').setRequired(true)),
-  async execute(interaction: CommandInteraction) {
+  async execute(interaction: ChatInputCommandInteraction) {
     if (!interaction.guild) {
       interaction.reply({ content: 'You are not currently in a guild!', ephemeral: true });
       return;

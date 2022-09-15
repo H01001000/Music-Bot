@@ -1,5 +1,4 @@
-import { SlashCommandBuilder } from '@discordjs/builders';
-import { CommandInteraction } from 'discord.js';
+import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 import * as yt from 'youtube-search-without-api-key';
 import ytpl from 'ytpl';
 import Players from '../Players';
@@ -13,7 +12,7 @@ export default {
     .setDescription('Plays the song with the given URL/Name')
     .addStringOption((option) => option.setName('keyword').setDescription('Name or url for the song you want to play').setRequired(true))
     .addStringOption((option) => option.setName('begin-at').setDescription('The beginning time in mm:ss format')),
-  async execute(interaction: CommandInteraction) {
+  async execute(interaction: ChatInputCommandInteraction) {
     if (!interaction.guild) {
       await interaction.reply({ content: 'You are not currently in a voice channel!', ephemeral: true });
       return;

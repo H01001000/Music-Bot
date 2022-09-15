@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 
 import {
-  Client, Intents,
+  Client, GatewayIntentBits, Partials,
 } from 'discord.js';
 import ytpl from 'ytpl';
 import * as yt from 'youtube-search-without-api-key';
@@ -14,13 +14,17 @@ import Player from './util/Player';
 dotenv.config();
 
 const client = new Client({
-  partials: ['MESSAGE', 'CHANNEL', 'REACTION'],
   intents: [
-    Intents.FLAGS.GUILDS,
-    Intents.FLAGS.GUILD_MEMBERS,
-    Intents.FLAGS.GUILD_MESSAGES,
-    Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
-    Intents.FLAGS.GUILD_VOICE_STATES,
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMembers,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.GuildMessageReactions,
+    GatewayIntentBits.GuildVoiceStates,
+  ],
+  partials: [
+    Partials.Message,
+    Partials.Channel,
+    Partials.Reaction,
   ],
 });
 
@@ -97,7 +101,7 @@ client.on('messageCreate', async (message) => {
 });
 
 client.on('interactionCreate', async (interaction) => {
-  if (!interaction.isCommand()) return;
+  if (!interaction.isChatInputCommand()) return;
 
   const command = commands.get(interaction.commandName);
 

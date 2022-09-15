@@ -1,12 +1,11 @@
-import { SlashCommandBuilder } from '@discordjs/builders';
-import { CommandInteraction } from 'discord.js';
+import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 import Players from '../Players';
 
 export default {
   data: new SlashCommandBuilder()
     .setName('skip')
     .setDescription('Skips to the next song in the queue'),
-  async execute(interaction: CommandInteraction) {
+  async execute(interaction: ChatInputCommandInteraction) {
     if (!interaction.guild) {
       interaction.reply({ content: 'You are not currently in a guild!', ephemeral: true });
       return;

@@ -1,13 +1,12 @@
-import { SlashCommandBuilder } from '@discordjs/builders';
 import { AudioPlayerStatus } from '@discordjs/voice';
-import { CommandInteraction, MessageEmbed } from 'discord.js';
+import { ChatInputCommandInteraction, EmbedBuilder, SlashCommandBuilder } from 'discord.js';
 import Players from '../Players';
 
 export default {
   data: new SlashCommandBuilder()
     .setName('queue')
     .setDescription('Gets the current queued song list'),
-  async execute(interaction: CommandInteraction) {
+  async execute(interaction: ChatInputCommandInteraction) {
     if (!interaction.guild) {
       interaction.reply({ content: 'You are not currently in a guild!', ephemeral: true });
       return;
@@ -27,7 +26,7 @@ export default {
     const items = player.queue.toArray()
       .map((item, idx) => `${idx + 1}. Title: "${item.title}", Requested By: ${item.requestor}`);
     if (items.length > 0) {
-      interaction.reply({ embeds: [new MessageEmbed().setTitle('Current Playing Queue').setDescription(items.join('\n\n'))], ephemeral: true });
+      interaction.reply({ embeds: [new EmbedBuilder().setTitle('Current Playing Queue').setDescription(items.join('\n\n'))], ephemeral: true });
       return;
     }
     interaction.reply({ content: 'There are no songs in the queue.', ephemeral: false });
