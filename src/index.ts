@@ -57,11 +57,6 @@ client.on('messageCreate', async (message) => {
   if (results.length !== 0) {
     const result = results[0];
 
-    if (result.title.toLowerCase().includes('never gonna give you up') || result.title.toLowerCase().includes('rick roll') || result.title.toLowerCase().includes('rickroll')) {
-      await message.channel.send({ content: `${message.author} THIS SONG IS BANNED` });
-      return;
-    }
-
     player.queue.push({
       url: result.url,
       title: result.title,
