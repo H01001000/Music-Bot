@@ -23,7 +23,7 @@
     "discord-api-types": "^0.26.1",
     "discord.js": "^13.6.0",
     "dotenv": "^14.2.0",
-    "ffmpeg-static": "^4.4.1",
+    "ffmpeg-static": "^5.1.0",
     "libsodium-wrappers": "^0.7.9",
     "utf-8-validate": "^5.0.8",
     "winston": "^3.6.0",
