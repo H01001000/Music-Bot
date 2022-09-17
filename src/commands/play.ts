@@ -10,8 +10,7 @@ export default {
   data: new SlashCommandBuilder()
     .setName('play')
     .setDescription('Plays the song with the given URL/Name')
-    .addStringOption((option) => option.setName('keyword').setDescription('Name or url for the song you want to play').setRequired(true))
-    .addStringOption((option) => option.setName('begin-at').setDescription('The beginning time in mm:ss format')),
+    .addStringOption((option) => option.setName('keyword').setDescription('Name or url for the song you want to play').setRequired(true)),
   async execute(interaction: ChatInputCommandInteraction) {
     if (!interaction.guild) {
       await interaction.reply({ content: 'You are not currently in a voice channel!', ephemeral: true });
@@ -44,7 +43,7 @@ export default {
         thumbnailUrl: result.snippet.thumbnails.url,
         duration: { number: Util.toSec(result.duration_raw), string: result.duration_raw },
         requestor: interaction.user,
-        begin: interaction.options.getString('begin-at') ?? undefined,
+        begin: undefined,
         requestChannel: interaction.channel,
       });
 
