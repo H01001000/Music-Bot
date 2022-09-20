@@ -1,26 +1,8 @@
 import dotenv from 'dotenv';
-
-import {
-  Client, GatewayIntentBits, Partials,
-} from 'discord.js';
 import commands from './commands';
+import client from './client';
 
 dotenv.config();
-
-const client = new Client({
-  intents: [
-    GatewayIntentBits.Guilds,
-    GatewayIntentBits.GuildMembers,
-    GatewayIntentBits.GuildMessages,
-    GatewayIntentBits.GuildMessageReactions,
-    GatewayIntentBits.GuildVoiceStates,
-  ],
-  partials: [
-    Partials.Message,
-    Partials.Channel,
-    Partials.Reaction,
-  ],
-});
 
 client.on('interactionCreate', async (interaction) => {
   if (!interaction.isChatInputCommand()) return;
