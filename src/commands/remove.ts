@@ -1,5 +1,5 @@
 import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
-import Players from '../Players';
+import Players from '../structure/Players';
 
 export default {
   data: new SlashCommandBuilder()

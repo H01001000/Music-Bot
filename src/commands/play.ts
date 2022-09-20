@@ -1,8 +1,8 @@
 import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 import * as yt from 'youtube-search-without-api-key';
 import ytpl from 'ytpl';
-import Players from '../Players';
-import Player from '../util/Player';
+import Players from '../structure/Players';
+import Player from '../structure/Player';
 import Util from '../util/Util';
 import logger from '../util/logger';
 

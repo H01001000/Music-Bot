@@ -10,7 +10,7 @@ import {
   Channel, Guild, TextBasedChannel, User,
 } from 'discord.js';
 import ytdl, { Filter } from 'ytdl-core';
-import logger from './logger';
+import logger from '../util/logger';
 import Queue from './Queue';
 
 type Media = {
