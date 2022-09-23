@@ -6,7 +6,10 @@ import commands from './commands';
 
 dotenv.config();
 
-if (!process.env.token || !process.env.clientId) process.exit(1);
+if (!process.env.token || !process.env.clientId) {
+  console.log('Missing token or clientId');
+  process.exit(1);
+}
 
 const rest = new REST({ version: '10' }).setToken(process.env.token);
 
