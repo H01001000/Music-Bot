@@ -1,0 +1,14 @@
+{
+    "require": [
+        "test/swc-register.js"
+    ],
+    "recursive": true,
+    "timeout": 2000,
+    "watch-extensions": "ts",
+    "watch-files": [
+        "src",
+        "test"
+    ],
+    "enable-source-maps": true,
+    "parallel": true
+}
