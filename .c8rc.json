@@ -2,7 +2,8 @@
     "all": true,
     "src": "src",
     "reporter": [
-        "text"
+        "text",
+        "lcov"
     ],
     "include": [
         "src/**/*.ts"

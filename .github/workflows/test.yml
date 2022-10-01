@@ -68,3 +68,5 @@ jobs:
             ${{ runner.os }}-yarn-
       - run: yarn install --frozen-lockfile --immutable
       - run: yarn test
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
