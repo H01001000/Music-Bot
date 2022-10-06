@@ -43,7 +43,8 @@
             {
                 "allowAfterThis": true
             }
-        ]
+        ],
+        "max-len": "off"
     },
     "globals": {
         "NodeJS": true,
