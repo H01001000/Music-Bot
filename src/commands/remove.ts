@@ -1,5 +1,5 @@
 import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
-import Players from '../structure/Players';
+import { interactionPreprocessing } from '../util/Util';
 
 export default {
   data: new SlashCommandBuilder()
@@ -7,19 +7,9 @@ export default {
     .setDescription('Removes the song with the given ID in the queue')
     .addIntegerOption((option) => option.setName('index').setDescription('The index of the song you want to remove').setRequired(true)),
   async execute(interaction: ChatInputCommandInteraction) {
-    if (!interaction.guild) {
-      interaction.reply({ content: 'You are not currently in a guild!', ephemeral: true });
-      return;
-    }
-    const voiceChannel = interaction.guild.members.cache
-      .get(interaction.user.id)?.voice.channel;
-
-    if (!voiceChannel) {
-      interaction.reply({ content: 'You are not currently in a voice channel!', ephemeral: true });
-      return;
-    }
-    const player = Players.get(interaction.guild.id);
-    if (!player) {
+    const { skip, player, newPlayer } = interactionPreprocessing(interaction);
+    if (skip) return;
+    if (newPlayer) {
       interaction.reply({ content: 'no music in queue', ephemeral: true });
       return;
     }
