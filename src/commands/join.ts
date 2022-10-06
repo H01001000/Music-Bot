@@ -8,7 +8,7 @@ export default {
     .setDescription('Joins your current voice channel'),
   async execute(interaction: ChatInputCommandInteraction) {
     if (!interaction.guild) {
-      interaction.reply({ content: 'You are not currently in a voice channel!', ephemeral: true });
+      interaction.reply({ content: 'You are not currently in a guild!', ephemeral: true });
       return;
     }
     const voiceChannel = interaction.guild.members.cache
