@@ -23,6 +23,6 @@ export default {
       return;
     }
     player.leave();
-    interaction.reply({ content: 'Skiped', ephemeral: false });
+    interaction.reply({ content: 'Leaved', ephemeral: false });
   },
 };
