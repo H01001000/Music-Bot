@@ -15,6 +15,9 @@ export default {
       skip, voiceChannel, player, guild,
     } = interactionPreprocessing(interaction);
     if (skip) return;
+
+    await interaction.deferReply();
+
     const keyword = interaction.options.getString('keyword', true);
 
     const results = await yt.search(keyword.includes('youtu.be') ? keyword : `https://www.youtube.com/watch?v=${keyword.split('/')[keyword.split('/').length - 1]}`);
