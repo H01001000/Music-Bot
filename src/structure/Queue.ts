@@ -21,7 +21,7 @@ export default class Queue<T> {
   }
 
   toArray() {
-    return Object.values(this.items).filter((item) => item !== null);
+    return Array.from(this.items);
   }
 
   remove(index: number) {
