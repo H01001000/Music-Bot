@@ -2,7 +2,7 @@ import { assert } from 'chai';
 import sinon from 'sinon';
 import dotenv from 'dotenv';
 import client from '../src/structure/client';
-import { genId } from './testingUtils';
+import { genId } from './utils';
 
 describe('index.ts', () => {
   before(() => {
