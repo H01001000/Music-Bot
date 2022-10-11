@@ -22,7 +22,6 @@ type Media = {
     string: string
   },
   requestor: User
-  begin?: string
   requestChannel: TextBasedChannel | null
 }
 
@@ -94,7 +93,6 @@ export default class Player {
         this._nowPlaying.url,
         {
           ...ytdlOption,
-          begin: this._nowPlaying.begin,
         },
       ),
     ));

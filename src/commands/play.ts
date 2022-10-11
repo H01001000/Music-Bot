@@ -31,7 +31,6 @@ export default {
         thumbnailUrl: result.snippet.thumbnails.url,
         duration: { number: Util.toSec(result.duration_raw), string: result.duration_raw },
         requestor: interaction.user,
-        begin: undefined,
         requestChannel: interaction.channel,
       });
 
