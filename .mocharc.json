@@ -10,5 +10,5 @@
         "test"
     ],
     "enable-source-maps": true,
-    "parallel": true
+    "parallel": false
 }
