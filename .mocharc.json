@@ -1,7 +1,6 @@
 {
-    "require": [
-        "test/swc-register.js"
-    ],
+    "require": "ts-node/register",
+    "loader": "ts-node/esm",
     "recursive": true,
     "timeout": 2000,
     "watch-extensions": "ts",

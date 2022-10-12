@@ -1,17 +1,23 @@
-import {
-  AudioPlayerStatus,
-  createAudioPlayer,
-  createAudioResource,
-  DiscordGatewayAdapterCreator,
-  joinVoiceChannel,
-  VoiceConnection,
-} from '@discordjs/voice';
+import discordjsVoice, { DiscordGatewayAdapterCreator, VoiceConnection } from '@discordjs/voice';
+import { createRequire } from 'module';
 import {
   Channel, Guild, TextBasedChannel, User,
 } from 'discord.js';
 import ytdl, { Filter } from 'ytdl-core';
 import logger from '../util/logger';
 import Queue from './Queue';
+
+const {
+  AudioPlayerStatus,
+  createAudioPlayer,
+  createAudioResource,
+  joinVoiceChannel,
+}: {
+  AudioPlayerStatus: typeof discordjsVoice.AudioPlayerStatus,
+  createAudioPlayer: typeof discordjsVoice.createAudioPlayer,
+  createAudioResource: typeof discordjsVoice.createAudioResource,
+  joinVoiceChannel: typeof discordjsVoice.joinVoiceChannel,
+} = createRequire(import.meta.url)('@discordjs/voice');
 
 type Media = {
   title: string,

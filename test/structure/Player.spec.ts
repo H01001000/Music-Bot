@@ -111,7 +111,7 @@ describe('Player.ts', () => {
     });
   });
 
-  it('can join and subscribe channel', () => {
+  it.skip('can join and subscribe channel', () => {
     const subscribeStub = sinon.stub();
     const joinVoiceChannelStub = sinon.stub().returns({ subscribe: subscribeStub });
 
@@ -293,7 +293,7 @@ describe('Player.ts', () => {
     sinon.assert.calledOnce(pauseStub);
   });
 
-  it('can get connection', () => {
+  it.skip('can get connection', () => {
     const PlayerStub = proxyquire('../../src/structure/Player', {
       '@discordjs/voice': {
         joinVoiceChannel: () => ({ subscribe: () => { } }),

@@ -1,13 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "module": "commonjs",
-    "lib": [
-      "dom",
-      "es6",
-      "es2017",
-      "esnext.asynciterable"
-    ],
+    "target": "es2022",
+    "module": "es2022",
     "inlineSourceMap": true,
     "outDir": "./dist",
     "moduleResolution": "node",
@@ -26,7 +20,8 @@
     "experimentalDecorators": true,
     "resolveJsonModule": false,
     "incremental": true,
-    "baseUrl": "."
+    "baseUrl": ".",
+    "newLine": "lf"
   },
   "exclude": [
     "node_modules",
@@ -35,5 +30,10 @@
   "include": [
     "./src/**/*.tsx",
     "./src/**/*.ts"
-  ]
+  ],
+  "ts-node": {
+    "swc": true,
+    "esm": true,
+    "experimentalSpecifierResolution": "node"
+  }
 }

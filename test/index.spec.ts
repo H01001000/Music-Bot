@@ -17,15 +17,14 @@ describe('index.ts', () => {
   afterEach(() => {
     client.removeAllListeners();
     sinon.restore();
-    delete require.cache[require.resolve('../src/index')];
   });
 
-  it('will login discord with env variable "token"', () => {
+  it('will login discord with env variable "token"', async () => {
     sinon.restore();
     const stubClientLogin = sinon.stub(client, 'login');
     process.env.token = genId();
 
-    require('../src/index');
+    await import(`../src/index.ts?v=${Date.now()}`);
 
     // only login once
     assert.isTrue(stubClientLogin.calledOnce);
@@ -33,16 +32,16 @@ describe('index.ts', () => {
     assert.deepEqual(stubClientLogin.args[0], [process.env.token]);
   });
 
-  it('will call dotenv config', () => {
+  it('will call dotenv config', async () => {
     const stubDotenvConfig = sinon.stub(dotenv, 'config');
-    require('../src/index');
+    await import(`../src/index.ts?v=${Date.now()}`);
     assert.isTrue(stubDotenvConfig.calledOnce);
   });
 
-  it('will log ready when client ready', () => {
+  it('will log ready when client ready', async () => {
     const stubConsoleLog = sinon.stub(console, 'log');
 
-    require('../src/index');
+    await import(`../src/index.ts?v=${Date.now()}`);
     client.emit('ready', client);
 
     // console log ready

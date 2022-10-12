@@ -1,5 +1,5 @@
 {
     "ignore": [],
     "signal": "SIGKILL",
-    "exec": "yarn run swc-node"
+    "exec": "yarn ts-node"
 }
