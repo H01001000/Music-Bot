@@ -637,7 +637,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/yt-search@npm:^2":
+"@types/yt-search@npm:2.3.2":
   version: 2.3.2
   resolution: "@types/yt-search@npm:2.3.2"
   checksum: e1af3dd3a7a3561561836180a2707c6afd70a72b317471ac80191c538149404f5b51c467272059cf251505c299826518dee5f8867055faadeeadf62b5d5b4c78
@@ -3525,7 +3525,7 @@ __metadata:
     "@types/mocha": 10.0.0
     "@types/node": 18.8.3
     "@types/sinon": 10.0.13
-    "@types/yt-search": ^2
+    "@types/yt-search": 2.3.2
     "@typescript-eslint/eslint-plugin": 5.40.0
     "@typescript-eslint/parser": 5.40.0
     bufferutil: ^4.0.6
