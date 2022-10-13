@@ -24,10 +24,10 @@ export const keywordTransformer = (keyword: string) => {
   try {
     const url = new URL(keyword);
     if (url.hostname === 'www.youtube.com') {
-      return new URL(keyword).searchParams.get('v') ?? keyword;
+      return url.searchParams.get('v') ?? keyword;
     }
     if (url.hostname === 'youtu.be') {
-      return new URL(keyword).pathname.slice(1);
+      return url.pathname.slice(1);
     }
     return keyword;
   } catch {
