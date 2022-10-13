@@ -20,6 +20,21 @@ export function toSec(hhmmss: string) {
   return (+time[0]);
 }
 
+export const keywordTransformer = (keyword: string) => {
+  try {
+    const url = new URL(keyword);
+    if (url.hostname === 'www.youtube.com') {
+      return new URL(keyword).searchParams.get('v') ?? keyword;
+    }
+    if (url.hostname === 'youtu.be') {
+      return new URL(keyword).pathname.slice(1);
+    }
+    return keyword;
+  } catch {
+    return keyword;
+  }
+};
+
 export function interactionPreprocessing(interaction: ChatInputCommandInteraction): {
   skip: true;
   voiceChannel: VoiceBasedChannel | null | undefined;
