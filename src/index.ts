@@ -29,7 +29,6 @@ client.on('ready', () => {
 
 process.on('SIGINT', () => {
   client.destroy();
-  process.exit(0);
 });
 
 client.login(process.env.token);
