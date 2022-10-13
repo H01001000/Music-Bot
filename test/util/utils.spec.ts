@@ -69,7 +69,7 @@ describe('utils.ts', () => {
     it('will reply and return skip true without guild', () => {
       const replyStub = sinon.stub();
       assert.deepEqual(interactionPreprocessing({ guild: null, reply: replyStub } as unknown as ChatInputCommandInteraction), {
-        skip: true, voiceChannel: undefined, player: undefined, newPlayer: undefined, guild: undefined,
+        skip: true,
       });
       assert.deepEqual(replyStub.firstCall.args[0], { content: 'You are not currently in a guild!', ephemeral: true });
       sinon.assert.calledOnce(replyStub);
@@ -80,7 +80,7 @@ describe('utils.ts', () => {
       const id = genId();
       const guild = { members: { cache: { get: cacheGetStub } } } as unknown as Guild;
       assert.deepEqual(interactionPreprocessing({ guild, user: { id }, reply: replyStub } as unknown as ChatInputCommandInteraction), {
-        skip: true, voiceChannel: undefined, player: undefined, newPlayer: undefined, guild,
+        skip: true,
       });
       assert.deepEqual(replyStub.firstCall.args[0], { content: 'You are not currently in a voice channel!', ephemeral: true });
       sinon.assert.calledOnce(replyStub);
@@ -93,7 +93,7 @@ describe('utils.ts', () => {
       const id = genId();
       const guild = { id: genId(), members: { cache: { get: cacheGetStub } } } as unknown as Guild;
       assert.deepEqual(interactionPreprocessing({ guild, user: { id }, reply: replyStub } as unknown as ChatInputCommandInteraction), {
-        skip: false, voiceChannel: channel, player: Players.get(guild.id), newPlayer: true, guild,
+        skip: false, voiceChannel: channel, player: Players.get(guild.id) as Player, newPlayer: true, guild,
       });
       sinon.assert.notCalled(replyStub);
     });
@@ -105,7 +105,7 @@ describe('utils.ts', () => {
       const guild = { id: genId(), members: { cache: { get: cacheGetStub } } } as unknown as Guild;
       Players.set(guild.id, new Player(guild));
       assert.deepEqual(interactionPreprocessing({ guild, user: { id }, reply: replyStub } as unknown as ChatInputCommandInteraction), {
-        skip: false, voiceChannel: channel, player: Players.get(guild.id), newPlayer: false, guild,
+        skip: false, voiceChannel: channel, player: Players.get(guild.id) as Player, newPlayer: false, guild,
       });
       sinon.assert.notCalled(replyStub);
     });

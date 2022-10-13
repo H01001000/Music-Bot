@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import commands from './commands';
 import client from './structure/client';
+import { interactionPreprocessing } from './util/utils';
 
 dotenv.config();
 
@@ -11,8 +12,10 @@ client.on('interactionCreate', async (interaction) => {
 
   if (!command) return;
 
+  const preprocessingResult = interactionPreprocessing(interaction);
+  if (preprocessingResult.skip) return;
   try {
-    await command.execute(interaction);
+    await command.execute(interaction, preprocessingResult);
   } catch (error) {
     console.error(error);
     try {

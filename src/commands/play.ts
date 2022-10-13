@@ -1,18 +1,15 @@
 import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 import yts from 'yt-search';
 import logger from '../util/logger';
-import { interactionPreprocessing, keywordTransformer } from '../util/utils';
+import { PreprocessingResult, keywordTransformer } from '../util/utils';
 
 export default {
   data: new SlashCommandBuilder()
     .setName('play')
     .setDescription('Plays the song with the given URL/Name')
     .addStringOption((option) => option.setName('keyword').setDescription('Name or url for the song you want to play').setRequired(true)),
-  async execute(interaction: ChatInputCommandInteraction) {
-    const {
-      skip, voiceChannel, player, guild,
-    } = interactionPreprocessing(interaction);
-    if (skip) return;
+  async execute(interaction: ChatInputCommandInteraction, preprocessingResult: PreprocessingResult) {
+    const { voiceChannel, player, guild } = preprocessingResult;
 
     await interaction.deferReply();
 

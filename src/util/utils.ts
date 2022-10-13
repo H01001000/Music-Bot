@@ -37,10 +37,6 @@ export const keywordTransformer = (keyword: string) => {
 
 export function interactionPreprocessing(interaction: ChatInputCommandInteraction): {
   skip: true;
-  voiceChannel: VoiceBasedChannel | null | undefined;
-  player: Player | undefined;
-  newPlayer: boolean | undefined;
-  guild: undefined | Guild
 } | {
   skip: false;
   voiceChannel: VoiceBasedChannel;
@@ -51,7 +47,7 @@ export function interactionPreprocessing(interaction: ChatInputCommandInteractio
   if (!interaction.guild) {
     interaction.reply({ content: 'You are not currently in a guild!', ephemeral: true });
     return {
-      skip: true, voiceChannel: undefined, player: undefined, newPlayer: undefined, guild: undefined,
+      skip: true,
     };
   }
   const voiceChannel = interaction.guild.members.cache
@@ -60,7 +56,7 @@ export function interactionPreprocessing(interaction: ChatInputCommandInteractio
   if (!voiceChannel) {
     interaction.reply({ content: 'You are not currently in a voice channel!', ephemeral: true });
     return {
-      skip: true, voiceChannel: undefined, player: undefined, newPlayer: undefined, guild: interaction.guild,
+      skip: true,
     };
   }
   let player = Players.get(interaction.guild.id);
@@ -73,3 +69,5 @@ export function interactionPreprocessing(interaction: ChatInputCommandInteractio
     skip: false, voiceChannel, player, newPlayer, guild: interaction.guild,
   };
 }
+
+export type PreprocessingResult = Exclude<ReturnType<typeof interactionPreprocessing>, { skip: true }>

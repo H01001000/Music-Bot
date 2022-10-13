@@ -1,14 +1,13 @@
 import { AudioPlayerStatus } from '@discordjs/voice';
 import { ChatInputCommandInteraction, EmbedBuilder, SlashCommandBuilder } from 'discord.js';
-import { interactionPreprocessing } from '../util/utils';
+import { PreprocessingResult } from '../util/utils';
 
 export default {
   data: new SlashCommandBuilder()
     .setName('queue')
     .setDescription('Gets the current queued song list'),
-  async execute(interaction: ChatInputCommandInteraction) {
-    const { skip, player, newPlayer } = interactionPreprocessing(interaction);
-    if (skip) return;
+  async execute(interaction: ChatInputCommandInteraction, preprocessingResult: PreprocessingResult) {
+    const { player, newPlayer } = preprocessingResult;
     if (newPlayer || player.player.state.status !== AudioPlayerStatus.Playing) {
       interaction.reply({ content: 'No music is playing', ephemeral: true });
       return;
