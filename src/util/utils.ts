@@ -40,7 +40,7 @@ export function interactionPreprocessing(interaction: ChatInputCommandInteractio
   voiceChannel: VoiceBasedChannel | null | undefined;
   player: Player | undefined;
   newPlayer: boolean | undefined;
-  guild: undefined
+  guild: undefined | Guild
 } | {
   skip: false;
   voiceChannel: VoiceBasedChannel;
@@ -60,13 +60,12 @@ export function interactionPreprocessing(interaction: ChatInputCommandInteractio
   if (!voiceChannel) {
     interaction.reply({ content: 'You are not currently in a voice channel!', ephemeral: true });
     return {
-      skip: true, voiceChannel, player: undefined, newPlayer: undefined, guild: undefined,
+      skip: true, voiceChannel: undefined, player: undefined, newPlayer: undefined, guild: interaction.guild,
     };
   }
   let player = Players.get(interaction.guild.id);
-  let newPlayer = false;
+  const newPlayer = !player;
   if (!player) {
-    newPlayer = true;
     player = new Player(interaction.guild);
     Players.set(interaction.guild.id, player);
   }
