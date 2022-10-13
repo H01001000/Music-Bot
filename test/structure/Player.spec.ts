@@ -6,7 +6,7 @@ import { genId } from '../utils';
 import Player from '../../src/structure/Player';
 import logger from '../../src/util/logger';
 
-describe('Player.ts', () => {
+describe('structure/Player.ts', () => {
   let clock: SinonFakeTimers;
   beforeEach(() => {
     clock = sinon.useFakeTimers();

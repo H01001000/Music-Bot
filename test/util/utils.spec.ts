@@ -8,7 +8,7 @@ import {
 } from '../../src/util/utils';
 import { genId } from '../utils';
 
-describe('utils.ts', () => {
+describe('util/utils.ts', () => {
   afterEach(() => {
     sinon.restore();
     Players.clear();
