@@ -1,7 +1,7 @@
 import { AudioPlayerStatus } from '@discordjs/voice';
 import { ChatInputCommandInteraction, EmbedBuilder, SlashCommandBuilder } from 'discord.js';
-import * as Util from '../util/Util';
-import { interactionPreprocessing } from '../util/Util';
+import * as Util from '../util/utils';
+import { interactionPreprocessing } from '../util/utils';
 
 export default {
   data: new SlashCommandBuilder()

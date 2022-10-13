@@ -1,7 +1,7 @@
 import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 import yts from 'yt-search';
 import logger from '../util/logger';
-import { interactionPreprocessing, keywordTransformer } from '../util/Util';
+import { interactionPreprocessing, keywordTransformer } from '../util/utils';
 
 export default {
   data: new SlashCommandBuilder()
