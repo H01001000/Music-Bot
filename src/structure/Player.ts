@@ -4,8 +4,14 @@ import {
   Channel, Guild, TextBasedChannel, User,
 } from 'discord.js';
 import ytdl, { Filter } from 'ytdl-core';
+import fs from 'node:fs';
+import ffmpeg from 'ffmpeg-static';
+import childProcess from 'node:child_process';
+import util from 'util';
 import logger from '../util/logger';
 import Queue from './Queue';
+
+const exec = util.promisify(childProcess.exec);
 
 const {
   AudioPlayerStatus,
@@ -29,6 +35,7 @@ type Media = {
   },
   requestor: User
   requestChannel: TextBasedChannel | null
+  begin: number
 }
 
 const ytdlOption = {
@@ -92,7 +99,30 @@ export default class Player {
 
     // @ts-expect-error
     this._nowPlaying = this.queue.pop();
-    this.player.pause(true);
+    this.player.stop();
+
+    if (this._nowPlaying.begin !== 0) {
+      (async () => {
+        await Promise.all([
+          fs.promises.mkdir('cache', { recursive: true }),
+          fs.promises.rm('cache/input.webm', { recursive: true, force: true }),
+          fs.promises.rm('cache/output.webm', { recursive: true, force: true }),
+        ]);
+        let time = Date.now();
+        await new Promise<void>((resolve) => {
+          ytdl(this._nowPlaying.url, { ...ytdlOption })
+            .pipe(fs.createWriteStream('cache/input.webm').on('finish', async () => {
+              resolve();
+            }));
+        });
+        logger.debug(`Downloaded in ${Date.now() - time}`);
+        time = Date.now();
+        await exec(`${ffmpeg} -ss ${this._nowPlaying.begin} -i cache/input.webm cache/output.webm`);
+        logger.debug(`Trancoded in ${Date.now() - time}`);
+        this.player.play(createAudioResource('cache/output.webm', { silencePaddingFrames: 0 }));
+      })();
+      return true;
+    }
 
     this.player.play(createAudioResource(
       ytdl(
