@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import commands from './commands';
 import client from './structure/client';
+import logger from './util/logger';
 import { interactionPreprocessing } from './util/utils';
 
 dotenv.config();
@@ -17,7 +18,8 @@ client.on('interactionCreate', async (interaction) => {
   try {
     await command.execute(interaction, preprocessingResult);
   } catch (error) {
-    console.error(error);
+    logger.error(error);
+
     if (interaction.replied) {
       await interaction.editReply({ content: 'There was an error while executing this command!' });
     } else {
