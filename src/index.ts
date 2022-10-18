@@ -21,9 +21,9 @@ client.on('interactionCreate', async (interaction) => {
     logger.error(error);
 
     if (interaction.replied) {
-      await interaction.editReply({ content: 'There was an error while executing this command!' });
+      interaction.editReply({ content: 'There was an error while executing this command!' });
     } else {
-      await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+      interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
     }
   }
 });
