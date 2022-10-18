@@ -49,8 +49,11 @@ describe('util/utils.ts', () => {
     });
   });
   describe('keywordTransformer', () => {
-    it('can get video id from youtube.com link', () => {
+    it('can get video id from www.youtube.com link', () => {
       assert.equal(keywordTransformer('https://www.youtube.com/watch?v=56fwa641wa'), '56fwa641wa');
+    });
+    it('can get video id from youtube.com link', () => {
+      assert.equal(keywordTransformer('https://youtube.com/watch?v=56fwa641wa'), '56fwa641wa');
     });
     it('will return original link from youtube.com without "v" query', () => {
       assert.equal(keywordTransformer('https://www.youtube.com/watch/goiawhoi'), 'https://www.youtube.com/watch/goiawhoi');

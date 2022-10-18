@@ -23,7 +23,7 @@ export function toSec(hhmmss: string) {
 export const keywordTransformer = (keyword: string) => {
   try {
     const url = new URL(keyword);
-    if (url.hostname === 'www.youtube.com') {
+    if (url.hostname === 'www.youtube.com' || url.hostname === 'youtube.com') {
       return url.searchParams.get('v') ?? keyword;
     }
     if (url.hostname === 'youtu.be') {
