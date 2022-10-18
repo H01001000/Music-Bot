@@ -25,7 +25,7 @@ client.on('interactionCreate', async (interaction) => {
   } catch (error) {
     logger.error(error);
 
-    if (interaction.replied) {
+    if (interaction.replied || interaction.deferred) {
       interaction.editReply({ content: 'There was an error while executing this command!' });
     } else {
       interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
