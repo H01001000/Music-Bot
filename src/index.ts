@@ -6,6 +6,11 @@ import { interactionPreprocessing } from './util/utils';
 
 dotenv.config();
 
+if (!process.env.token) {
+  console.log('Missing discord token');
+  process.exit(1);
+}
+
 client.on('interactionCreate', async (interaction) => {
   if (!interaction.isChatInputCommand()) return;
 
