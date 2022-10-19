@@ -1,4 +1,4 @@
-import discordjsVoice, { DiscordGatewayAdapterCreator, VoiceConnection } from '@discordjs/voice';
+import discordjsVoice from '@discordjs/voice';
 import { createRequire } from 'module';
 import {
   Channel, Guild, TextBasedChannel, User,
@@ -69,11 +69,11 @@ export default class Player {
     });
   }
 
-  public readonly player;
+  public readonly player: discordjsVoice.AudioPlayer;
 
   private readonly guild;
 
-  private _connection: VoiceConnection;
+  private _connection: discordjsVoice.VoiceConnection;
 
   public readonly queue;
 
@@ -85,7 +85,7 @@ export default class Player {
     this._connection = joinVoiceChannel({
       channelId: VoiceChannel.id,
       guildId: this.guild.id,
-      adapterCreator: this.guild.voiceAdapterCreator as DiscordGatewayAdapterCreator,
+      adapterCreator: this.guild.voiceAdapterCreator as discordjsVoice.DiscordGatewayAdapterCreator,
     });
     this._connection.subscribe(this.player);
   }
