@@ -104,7 +104,7 @@ export default class Player {
 
     // @ts-expect-error
     this._nowPlaying = this.queue.pop();
-    this.player.stop();
+    this.player.pause(true);
 
     if (this._nowPlaying.begin !== 0 && ffmpegExists) {
       const inoutStream = new Transform({
