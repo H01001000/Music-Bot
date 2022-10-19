@@ -570,6 +570,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/fluent-ffmpeg@npm:^2":
+  version: 2.1.20
+  resolution: "@types/fluent-ffmpeg@npm:2.1.20"
+  dependencies:
+    "@types/node": "*"
+  checksum: f810a12a427f8e6568cec2ef250693e533112b66b7cd9ca9e10fe32b2aecb85623b8bb4ae5e51e47f79e27cdb969d3115720588b9f6fc7e4d17b4d4dc5e0d677
+  languageName: node
+  linkType: hard
+
 "@types/istanbul-lib-coverage@npm:^2.0.1":
   version: 2.0.4
   resolution: "@types/istanbul-lib-coverage@npm:2.0.4"
@@ -1065,7 +1074,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"async@npm:^3.2.3":
+"async@npm:>=0.2.9, async@npm:^3.2.3":
   version: 3.2.4
   resolution: "async@npm:3.2.4"
   checksum: 43d07459a4e1d09b84a20772414aa684ff4de085cbcaec6eea3c7a8f8150e8c62aa6cd4e699fe8ee93c3a5b324e777d34642531875a0817a35697522c1b02e89
@@ -2273,6 +2282,16 @@ __metadata:
   version: 3.2.7
   resolution: "flatted@npm:3.2.7"
   checksum: 427633049d55bdb80201c68f7eb1cbd533e03eac541f97d3aecab8c5526f12a20ccecaeede08b57503e772c769e7f8680b37e8d482d1e5f8d7e2194687f9ea35
+  languageName: node
+  linkType: hard
+
+"fluent-ffmpeg@npm:^2.1.2":
+  version: 2.1.2
+  resolution: "fluent-ffmpeg@npm:2.1.2"
+  dependencies:
+    async: ">=0.2.9"
+    which: ^1.1.1
+  checksum: ab7ed909486298f33b991af051c38e40410ae5b03b0b6d33d0855636a0b56330ffe9efed6c7eedb00f1c6c713c795cbdb283f6f2216db925ae5e737a22c6a97f
   languageName: node
   linkType: hard
 
@@ -3522,6 +3541,7 @@ __metadata:
     "@swc/cli": 0.1.57
     "@swc/core": 1.3.9
     "@types/chai": 4.3.3
+    "@types/fluent-ffmpeg": ^2
     "@types/mocha": 10.0.0
     "@types/node": 18.8.3
     "@types/sinon": 10.0.13
@@ -3538,6 +3558,7 @@ __metadata:
     eslint-config-airbnb-base: 15.0.0
     eslint-plugin-import: 2.26.0
     ffmpeg-static: ^5.1.0
+    fluent-ffmpeg: ^2.1.2
     libsodium-wrappers: ^0.7.9
     mocha: 10.1.0
     nodemon: 2.0.20
@@ -5012,6 +5033,17 @@ __metadata:
     is-string: ^1.0.5
     is-symbol: ^1.0.3
   checksum: 53ce774c7379071729533922adcca47220228405e1895f26673bbd71bdf7fb09bee38c1d6399395927c6289476b5ae0629863427fd151491b71c4b6cb04f3a5e
+  languageName: node
+  linkType: hard
+
+"which@npm:^1.1.1":
+  version: 1.3.1
+  resolution: "which@npm:1.3.1"
+  dependencies:
+    isexe: ^2.0.0
+  bin:
+    which: ./bin/which
+  checksum: f2e185c6242244b8426c9df1510e86629192d93c1a986a7d2a591f2c24869e7ffd03d6dac07ca863b2e4c06f59a4cc9916c585b72ee9fa1aa609d0124df15e04
   languageName: node
   linkType: hard
 

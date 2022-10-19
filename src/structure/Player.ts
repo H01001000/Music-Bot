@@ -4,14 +4,19 @@ import {
   Channel, Guild, TextBasedChannel, User,
 } from 'discord.js';
 import ytdl, { Filter } from 'ytdl-core';
-import fs from 'node:fs';
-import ffmpeg from 'ffmpeg-static';
-import childProcess from 'node:child_process';
-import util from 'util';
+import ffmpeg from 'fluent-ffmpeg';
+import ffmpegPath from 'ffmpeg-static';
+import { Transform } from 'stream';
 import logger from '../util/logger';
 import Queue from './Queue';
 
-const exec = util.promisify(childProcess.exec);
+let ffmpegExists = true;
+if (ffmpegPath) {
+  ffmpeg.setFfmpegPath(ffmpegPath);
+} else {
+  ffmpegExists = false;
+  logger.warn('Did not found ffmpeg, begin-at will be ignored.');
+}
 
 const {
   AudioPlayerStatus,
@@ -101,26 +106,23 @@ export default class Player {
     this._nowPlaying = this.queue.pop();
     this.player.stop();
 
-    if (this._nowPlaying.begin !== 0) {
-      (async () => {
-        await Promise.all([
-          fs.promises.mkdir('cache', { recursive: true }),
-          fs.promises.rm('cache/input.webm', { recursive: true, force: true }),
-          fs.promises.rm('cache/output.webm', { recursive: true, force: true }),
-        ]);
-        let time = Date.now();
-        await new Promise<void>((resolve) => {
-          ytdl(this._nowPlaying.url, { ...ytdlOption })
-            .pipe(fs.createWriteStream('cache/input.webm').on('finish', async () => {
-              resolve();
-            }));
-        });
-        logger.debug(`Downloaded in ${Date.now() - time}`);
-        time = Date.now();
-        await exec(`${ffmpeg} -ss ${this._nowPlaying.begin} -i cache/input.webm cache/output.webm`);
-        logger.debug(`Trancoded in ${Date.now() - time}`);
-        this.player.play(createAudioResource('cache/output.webm', { silencePaddingFrames: 0 }));
-      })();
+    if (this._nowPlaying.begin !== 0 && ffmpegExists) {
+      const inoutStream = new Transform({
+        transform(chunk, _encoding, callback) {
+          this.push(chunk);
+          callback();
+        },
+      })
+        .on('error', (err) => { if (err.message !== 'Premature close') logger.error(err.message); });
+
+      ffmpeg(ytdl(this._nowPlaying.url, { ...ytdlOption }))
+        .inputOption('-ss', this._nowPlaying.begin.toString())
+        .format('webm')
+        .on('error', (err) => { if (err.message !== 'Output stream error: Premature close') logger.error(err.message); })
+        .pipe(inoutStream, { end: true })
+        .on('error', (err) => { if (err.message !== 'Premature close') logger.error(err.message); });
+
+      this.player.play(createAudioResource(inoutStream));
       return true;
     }
 
