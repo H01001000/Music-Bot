@@ -166,7 +166,7 @@ describe('structure/Player.ts', () => {
           const player = new Player({});
 
           sinon.stub(player.player, 'play');
-          player.queue.push({ url: '' });
+          player.queue.push({ url: '', begin: 0 });
           sinon.stub(player.player.state, 'status').get(() => AudioPlayerStatus[statueKey]);
 
           assert.isFalse(player.playMedia());
@@ -178,7 +178,7 @@ describe('structure/Player.ts', () => {
       // @ts-expect-error
       const player = new Player({});
 
-      player.queue.push({ url: '' });
+      player.queue.push({ url: '', begin: 0 });
       sinon.stub(player.player.state, 'status').get(() => AudioPlayerStatus.Idle);
 
       assert.isTrue(player.playMedia());
@@ -189,7 +189,7 @@ describe('structure/Player.ts', () => {
       const player = new Player({});
 
       sinon.stub(player.player, 'play');
-      player.queue.push({ url: '' });
+      player.queue.push({ url: '', begin: 0 });
       sinon.stub(player.player.state, 'status').get(() => AudioPlayerStatus.Playing);
 
       assert.isTrue(player.playMedia(true));
@@ -200,7 +200,7 @@ describe('structure/Player.ts', () => {
       const player = new Player({});
 
       sinon.stub(player.player, 'play');
-      player.queue.push({ url: '' });
+      player.queue.push({ url: '', begin: 0 });
       sinon.stub(player.player.state, 'status').get(() => AudioPlayerStatus.Idle);
 
       // @ts-expect-error
@@ -219,7 +219,7 @@ describe('structure/Player.ts', () => {
       sinon.stub(player.player, 'play');
       sinon.stub(player.player.state, 'status').get(() => AudioPlayerStatus.Idle);
 
-      const song = { url: '' };
+      const song = { url: '', begin: 0 };
       player.queue.push(song);
 
       player.playMedia(false);
@@ -232,7 +232,7 @@ describe('structure/Player.ts', () => {
       const player = new Player({});
 
       const playerPlayStub = sinon.stub(player.player, 'play');
-      player.queue.push({ url: '' });
+      player.queue.push({ url: '', begin: 0 });
       sinon.stub(player.player.state, 'status').get(() => AudioPlayerStatus.Idle);
 
       player.playMedia(false);
