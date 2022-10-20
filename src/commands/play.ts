@@ -1,5 +1,5 @@
 import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
-import yts from 'yt-search';
+import youtube from 'youtube-sr';
 import logger from '../util/logger';
 import {
   PreprocessingResult, keywordTransformer, toHHMMSS, toSec,
@@ -18,16 +18,18 @@ export default {
 
     const keyword = interaction.options.getString('keyword', true);
 
-    const result = (await yts(keywordTransformer(keyword))).videos[0];
+    const result = (await youtube.searchOne(keywordTransformer(keyword), 'video'));
 
     const beginOption = interaction.options.getString('begin-at');
     const begin = beginOption !== null ? toSec(beginOption) : 0;
 
+    const durationInSec = toSec(result.durationFormatted as string);
+
     player.queue.push({
       url: result.url,
-      title: result.title,
-      thumbnailUrl: result.thumbnail,
-      duration: { number: begin === 0 ? result.seconds : result.seconds - begin, string: begin === 0 ? result.timestamp : toHHMMSS(result.seconds - begin) },
+      title: result.title as string,
+      thumbnailUrl: result.thumbnail?.url as string,
+      duration: { number: begin === 0 ? durationInSec : durationInSec - begin, string: begin === 0 ? result.durationFormatted as string : toHHMMSS(durationInSec - begin) },
       requestor: interaction.user,
       requestChannel: interaction.channel,
       begin,
@@ -35,6 +37,6 @@ export default {
 
     player.join(voiceChannel);
     logger.log('info', `${interaction.user.username} at ${guild.name} play ${result.title} url: ${result.url}`);
-    await interaction.editReply({ content: `${player.playMedia() ? 'Playing' : 'Queued'} **${result.title}**\nUrl: ${result.url}` });
+    await interaction.editReply({ content: `${player.playMedia() ? 'Playing' : 'Queued'} **${result.title}** ${begin !== 0 ? `begin at ${beginOption}` : ''} \nUrl: ${result.url} ` });
   },
 };
