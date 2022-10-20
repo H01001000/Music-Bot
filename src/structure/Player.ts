@@ -126,14 +126,7 @@ export default class Player {
       return true;
     }
 
-    this.player.play(createAudioResource(
-      ytdl(
-        this._nowPlaying.url,
-        {
-          ...ytdlOption,
-        },
-      ),
-    ));
+    this.player.play(createAudioResource(ytdl(this._nowPlaying.url, { ...ytdlOption })));
     return true;
   }
 
