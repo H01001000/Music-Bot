@@ -60,12 +60,7 @@ export default class Player {
       }
     });
     this.player.on('error', (error) => {
-      logger.error(`Error when trying to play ${this._nowPlaying.title} url: ${this._nowPlaying.url} ${error}`);
-      if (error.message === 'Status code: 410') {
-        this._nowPlaying.requestChannel?.send({ content: `<@${this._nowPlaying.requestor.id}> the song "${this._nowPlaying.title}" cannot be play because of its age restricted.` });
-        return;
-      }
-      this._nowPlaying.requestChannel?.send({ content: `<@${this._nowPlaying.requestor.id}> the song "${this._nowPlaying.title}" cannot be play because of an error.` });
+      this.sendError(error.message);
     });
   }
 
@@ -80,6 +75,16 @@ export default class Player {
   private _nowPlaying: Media;
 
   private timeout: NodeJS.Timeout | null = null;
+
+  private sendError(error: string) {
+    if (error === 'Status code: 410') {
+      logger.info(`Error when trying to play ${this._nowPlaying.title} url: ${this._nowPlaying.url} because of its age restricted.`);
+      this._nowPlaying.requestChannel?.send({ content: `<@${this._nowPlaying.requestor.id}> the song "${this._nowPlaying.title}" cannot be play because of its age restricted.` });
+      return;
+    }
+    logger.error(`Error when trying to play ${this._nowPlaying.title} url: ${this._nowPlaying.url} ${error}`);
+    this._nowPlaying.requestChannel?.send({ content: `<@${this._nowPlaying.requestor.id}> the song "${this._nowPlaying.title}" cannot be play because of an error.` });
+  }
 
   join(VoiceChannel: Channel) {
     this._connection = joinVoiceChannel({
@@ -113,14 +118,14 @@ export default class Player {
           callback();
         },
       })
-        .on('error', (err) => { if (err.message !== 'Premature close') logger.error(err.message); });
+        .on('error', (err) => { if (err.message !== 'Premature close') logger.error(`inoutStream error, ${err.message}`); });
 
       ffmpeg(ytdl(this._nowPlaying.url, { ...ytdlOption }))
         .inputOption('-ss', this._nowPlaying.begin.toString())
         .format('webm')
-        .on('error', (err) => { if (err.message !== 'Output stream error: Premature close') logger.error(err.message); })
+        .on('error', (err) => { if (err.message !== 'Output stream error: Premature close') this.sendError(err.message.slice(19)); })
         .pipe(inoutStream, { end: true })
-        .on('error', (err) => { if (err.message !== 'Premature close') logger.error(err.message); });
+        .on('error', (err) => { if (err.message !== 'Premature close') logger.error(`ffmpeg pipe error, ${err.message}`); });
 
       this.player.play(createAudioResource(inoutStream));
       return true;
