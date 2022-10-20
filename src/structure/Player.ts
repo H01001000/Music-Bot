@@ -45,7 +45,7 @@ type Media = {
 
 const ytdlOption = {
   filter: 'audioonly' as Filter, quality: 'highestaudio', highWaterMark: 1024 * 1024 * 700, dlChunkSize: 0,
-};
+} as ytdl.downloadOptions;
 
 export default class Player {
   constructor(guild: Guild) {
