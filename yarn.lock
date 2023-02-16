@@ -1618,24 +1618,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"discord-api-types@npm:^0.37.10, discord-api-types@npm:^0.37.12, discord-api-types@npm:^0.37.3":
-  version: 0.37.12
-  resolution: "discord-api-types@npm:0.37.12"
-  checksum: 0dd6bd5ad9e80708e020904fd3fc0e538df89549ea398559e51fdb562428aaddd07b3b218c7aac574c18153fe5e3bed45860ba6af6c8ccc5f4e408ffc25e3d58
-  languageName: node
-  linkType: hard
-
-"discord-api-types@npm:^0.37.20":
-  version: 0.37.20
-  resolution: "discord-api-types@npm:0.37.20"
-  checksum: 88ebed85aada3483e83ac46a1b4574c0d59948060ac72f451d658fa646b20d62bd6f21792043621dcc5a9e9353d95c25de70646b8d2a93f0022154345800b26c
-  languageName: node
-  linkType: hard
-
-"discord-api-types@npm:^0.37.23":
-  version: 0.37.31
-  resolution: "discord-api-types@npm:0.37.31"
-  checksum: 8886a4c320b2abd1fd32cb573d688a9b677b6d82107efe9ea70c6d571dc5eb04d27741320d5e2ae46b316282248176a82c2212de2d11fc32d1f5a869b6519f03
+"discord-api-types@npm:^0.37.10, discord-api-types@npm:^0.37.12, discord-api-types@npm:^0.37.20, discord-api-types@npm:^0.37.23, discord-api-types@npm:^0.37.3":
+  version: 0.37.34
+  resolution: "discord-api-types@npm:0.37.34"
+  checksum: eaaa6fafcb6679de296e68ef0923656d63a51523202075e8f6436da2b87a19ad17f1fc0a805720cd9e833b87a97a22a3194958f034558d5a182c8f0ebc2626da
   languageName: node
   linkType: hard
 
